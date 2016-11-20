@@ -34,7 +34,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         //app.receivedEvent('deviceready');
-        if (navigator.network)
+        if (navigator.connection.type != Connection.NONE)
         	alert("Si hay internet");
         else
         	alert("No hay internet");
