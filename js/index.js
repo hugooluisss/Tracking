@@ -34,11 +34,21 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         //app.receivedEvent('deviceready');
-        if (navigator.connection.type != Connection.NONE)
+        /*if (navigator.connection.type != Connection.NONE)
         	alert("Si hay internet");
         else
         	alert("No hay internet");
+        */	
+        $("[action=acercaDe]").click(function(){
+        	$("#menuPrincipal").removeClass("in");
+        	$("#acercaDe").modal();
+        });
+        
+        $("#acercaDe").on('show.bs.modal', function(){
+        	reposition($("#acercaDe"));
+        });
     }
 };
 
 app.initialize();
+app.onDeviceReady();

@@ -1,0 +1,57 @@
+@import "variables.less";
+body{
+	padding-top: 70px;
+}
+
+
+nav.navbar{
+	background: @color_verde;
+	.sombra;
+	.navbar-brand{
+		color: white;
+		&:hover{
+			color: white;
+		}
+	}
+	
+	.navbar-header{
+		button{
+			color: white;
+			border: none;
+			
+			&:hover{
+				background: none;
+			}
+		}
+	}
+	
+	
+	#menuPrincipal{
+		right: 40px;
+		top: 10px;
+		
+		position: absolute;
+		border: none;
+		background: white;
+		color: black;
+		.sombra;
+		ul.nav{
+			padding: 0px 0px 0px 0px;
+		}
+	}
+}
+
+#modulo{
+	margin-top: 120px;
+	margin-bottom: 60px;
+}
+
+#btnAddProducto{
+	position: absolute;
+	bottom: 10px;
+	right: 20px;
+    
+	.fa-circle{
+		color: @color_verde;
+	}
+}
