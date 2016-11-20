@@ -62,6 +62,7 @@
 		<plugin name="cordova-plugin-file" source="npm"/>
 		<plugin name="cordova-plugin-geolocation" source="npm"/>
 		<plugin name="cordova-plugin-network-information" source="npm"/>
+		<plugin name="cordova-plugin-sqlite" source="npm"/>
 		
 		<!-- Define app icon for each platform. -->  
 		<icon src="icon.png" />  

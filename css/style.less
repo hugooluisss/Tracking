@@ -1,8 +1,29 @@
 @import "variables.less";
-body{
+[vista=addProducto]{
 	padding-top: 70px;
+	padding-left: 10px;
+	padding-right: 10px;
+	overflow-x: hidden;
+	
+	form{
+		input, input:focus, select{
+			border: none;
+			box-shadow: none;
+			border-bottom: 1px solid @colorLineaInput;
+			border-radius: none;
+		}
+		
+		label.control-label{
+			font-size: 20px;
+			color: @color_verde;
+			font-weight: normal;
+		}
+	}
 }
 
+.btn-success{
+	background: @color_verde;
+}
 
 nav.navbar{
 	background: @color_verde;
@@ -26,7 +47,7 @@ nav.navbar{
 	}
 	
 	
-	#menuPrincipal{
+	#menuPrincipal, #menuPrincipal2{
 		right: 40px;
 		top: 10px;
 		
@@ -46,7 +67,7 @@ nav.navbar{
 	margin-bottom: 60px;
 }
 
-#btnAddProducto{
+.botonPie{
 	position: absolute;
 	bottom: 10px;
 	right: 20px;

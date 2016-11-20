@@ -33,6 +33,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+    	var db = window.sqlitePlugin.openDatabase({name: "tracking"});
         //app.receivedEvent('deviceready');
         /*if (navigator.connection.type != Connection.NONE)
         	alert("Si hay internet");
@@ -40,12 +41,35 @@ var app = {
         	alert("No hay internet");
         */	
         $("[action=acercaDe]").click(function(){
-        	$("#menuPrincipal").removeClass("in");
+        	$("#menuPrincipal, #menuPrincipal2").removeClass("in");
+        	
         	$("#acercaDe").modal();
         });
         
         $("#acercaDe").on('show.bs.modal', function(){
         	reposition($("#acercaDe"));
+        });
+        
+        $("[vista=addProducto]").hide();
+        
+        $("#btnAddProducto").click(function(){
+        	$("[vista=addProducto]").show();
+        	$("[vista=home]").hide();
+        });
+        
+        $("#backToHome").click(function(){
+        	$("[vista=addProducto]").hide();
+        	$("[vista=home]").show();
+        });
+        
+        $("[action=getTiendas]").click(function(){
+        	getTiendas({
+        		after: function(resp){
+	        		$.each(resp, function(el){
+	        			alert(el.nombre);
+	        		});
+        		}
+        	});
         });
     }
 };
