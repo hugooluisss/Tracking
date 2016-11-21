@@ -35,7 +35,7 @@ var app = {
     onDeviceReady: function() {
     	try{
     		//var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-	    	var db = window.sqlitePlugin.openDatabase("tracking", "1.211116");
+	    	var db = window.sqlitePlugin.openDatabase({name: "tracking.db", location: 'default'});
 	    }catch(err){
 		    alert("No se pudo conectar a la base de datos: " + err.message);
 	    }
