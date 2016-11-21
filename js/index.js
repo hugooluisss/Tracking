@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var db = null;
 var app = {
     // Application Constructor
     initialize: function() {
@@ -34,8 +35,9 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
     	try{
-    		//var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-	    	var db = window.sqlitePlugin.openDatabase({name: "tracking.db", location: 'default'});
+	    	//db = window.sqlitePlugin.openDatabase({name: "tracking.db", location: 'default'});
+	    	db = window.openDatabase("tracking.db", "1.0", "Just a Dummy DB", 200000); //will create database Dummy_DB or open it
+	    	crearBD(db);
 	    }catch(err){
 		    alert("No se pudo conectar a la base de datos: " + err.message);
 	    }
@@ -71,7 +73,7 @@ var app = {
         	getTiendas({
         		after: function(resp){
         			var obj = new TTienda;
-	        		$.each(resp, function(el){
+	        		$.each(resp, function(i, el){
 	        			obj.add(el.id, el.name, {});
 	        		});
 	        		
@@ -83,6 +85,6 @@ var app = {
 };
 
 app.initialize();
-/*$(document).ready(function(){
+$(document).ready(function(){
 	app.onDeviceReady();
-});*/
+});

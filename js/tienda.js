@@ -5,7 +5,7 @@ TTienda = function(){
 		if (fn.before !== undefined) fn.before();
 		
 		db.transaction(function(tx) {
-			tx.executeSql("INSERT INTO tienda (id, nombre) VALUES (?,?)", [id, nombre], function(tx, res) {
+			tx.executeSql("INSERT INTO tienda (clave, nombre) VALUES (?,?)", [parseInt(id), nombre], function(tx, res) {
 				if (fn.after !== undefined) fn.after();
 			}, errorDB);
 		});

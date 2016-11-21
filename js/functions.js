@@ -19,7 +19,11 @@ function reposition(modal) {
 */
 function crearBD(db){
 	db.transaction(function(tx){
-		tx.executeSql('CREATE TABLE IF NOT EXISTS tienda (id integer primary key, name text, json text)');
+		tx.executeSql('drop table if exists tienda');
+		
+		tx.executeSql('CREATE TABLE tienda (clave integer primary key, nombre text)', [], function(){
+			console.log("tabla tienda creada");
+		}, errorDB);
 	});
 }
 
@@ -31,5 +35,5 @@ function crearBD(db){
 */
 
 function errorDB(tx, res){
-	console.log("Error en tiendas: " + e.message);
+	console.log("Error: " + res.message);
 }
