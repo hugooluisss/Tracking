@@ -65,9 +65,12 @@ var app = {
         $("[action=getTiendas]").click(function(){
         	getTiendas({
         		after: function(resp){
+        			var obj = new TTienda;
 	        		$.each(resp, function(el){
-	        			alert(el.nombre);
+	        			obj.add(el.id, el.name, {});
 	        		});
+	        		
+	        		alert(resp.length "tiendas");
         		}
         	});
         });
