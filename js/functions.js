@@ -22,3 +22,14 @@ function crearBD(db){
 		tx.executeSql('CREATE TABLE IF NOT EXISTS tienda (id integer primary key, name text, json text)');
 	});
 }
+
+
+/*
+*
+* Error en la base de datos
+*
+*/
+
+function errorDB(tx, res){
+	console.log("Error en tiendas: " + e.message);
+}

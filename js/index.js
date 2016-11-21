@@ -33,7 +33,12 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-    	var db = window.sqlitePlugin.openDatabase({name: "tracking"});
+    	try{
+    		//var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+	    	var db = window.sqlitePlugin.openDatabase("tracking", "1.211116");
+	    }catch(err){
+		    alert("No se pudo conectar a la base de datos: " + err.message);
+	    }
         //app.receivedEvent('deviceready');
         /*if (navigator.connection.type != Connection.NONE)
         	alert("Si hay internet");
@@ -78,4 +83,6 @@ var app = {
 };
 
 app.initialize();
-app.onDeviceReady();
+/*$(document).ready(function(){
+	app.onDeviceReady();
+});*/

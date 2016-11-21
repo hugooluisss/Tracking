@@ -7,7 +7,7 @@ TTienda = function(){
 		db.transaction(function(tx) {
 			tx.executeSql("INSERT INTO tienda (id, nombre) VALUES (?,?)", [id, nombre], function(tx, res) {
 				if (fn.after !== undefined) fn.after();
-			});
+			}, errorDB);
 		});
  
 	};
@@ -15,9 +15,11 @@ TTienda = function(){
 	this.truncate = function(fn){
 		if (fn.before !== undefined) fn.before();
 		
-		db.execSQL("truncate table tienda");
-		
-		if (fn.after !== undefined) fn.after();
+		db.transaction(function(tx) {
+			tx.execSQL("delete from tienda", [], function(tx, res) {
+				if (fn.after !== undefined) fn.after();
+			}, errorDB);
+		});
 	}
 };
 
