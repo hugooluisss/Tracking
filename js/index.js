@@ -70,7 +70,7 @@ var app = {
 	        			obj.add(el.id, el.name, {});
 	        		});
 	        		
-	        		alert(resp.length "tiendas");
+	        		alert(resp.length + " tiendas");
         		}
         	});
         });
