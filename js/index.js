@@ -207,7 +207,7 @@ var app = {
 		$("[action=enviarAll]").click(function(){
 			db.transaction(function(tx) {
 				tx.executeSql("select * from codigo", [], function(tx, results){
-					alert(results.rows);
+					alert(results.rows.length);
 				}, errorDB);
 			});
 		});
