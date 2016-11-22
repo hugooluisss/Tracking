@@ -115,13 +115,23 @@ var app = {
 			if ($("#txtCodigo").val() == '')
 				alertify.error("Primero escanea el código");
 			else if ($("#lstImg").find("img").length < 4){
-				navigator.camera.getPicture(function(imageData) {
+				navigator.camera.getPicture(function(imageURI) {
 					var img = $("<img />");
 					alert(imageData);
-					img.attr("src", imageData);
+					img.attr("src", imageURI);
 					//subirFotoPerfil(imageData);
 					$("#lstImg").append(img);
-					escribirArchivo($("#txtCodigo").val() + "_" + $("#lstImg").find("img").length + ".txt", imageData);
+					
+					window.resolveLocalFileSystemURI(imageURI, function(fileEntry){
+						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) { 
+							fileSys.root.getDirectory("carpeta", {create: true, exclusive: false}, function(dir) { 
+								fileEntry.copyTo(dir, nomimage, function(entry){
+									alert(entry.fullPath);
+								}, errorSys); 
+							}, errorSys); 
+						}, errorSys); 
+					}, errorSys);
+					
 				}, function(message){
 					alertify.error("Ocurrio un error al subir la imagen");
 				}, { 
@@ -130,8 +140,7 @@ var app = {
 					targetWidth: 250,
 					targetHeight: 250,
 					correctOrientation: true,
-					allowEdit: false,
-					sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
+					allowEdit: false
 				});
 			}else
 				alertify.error("Solo permiten 4 imágenes por código");

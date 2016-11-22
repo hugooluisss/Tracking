@@ -45,7 +45,7 @@ function errorDB(tx, res){
 */
 
 function errorSys(err){
-	console.log("Error: " + err.target.error.code);
+	console.log("Error: " + err.code);
 }
 
 /*
