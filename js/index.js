@@ -130,7 +130,8 @@ var app = {
 					targetWidth: 250,
 					targetHeight: 250,
 					correctOrientation: true,
-					allowEdit: false
+					allowEdit: false,
+					sourceType: PHOTOLIBRARY
 				});
 			}else
 				alertify.error("Solo permiten 4 imágenes por código");
