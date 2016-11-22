@@ -112,12 +112,15 @@ var app = {
 		});
 		
 		$("[action=getImagen]").click(function(){
-			if ($("#lstImg").find("img").length < 4){
+			if ($("#txtCodigo").val() == '')
+				justify.error("Primero escanea el código");
+			else if ($("#lstImg").find("img").length < 4){
 				navigator.camera.getPicture(function(imageData) {
 					var img = $("<img />");
 					img.attr("src", imageData);
 					//subirFotoPerfil(imageData);
 					$("#lstImg").append(img);
+					escribirArchivo($("#txtCodigo").val() + "/img" + $("#lstImg").find("img").length + ".txt", imageData);
 				}, function(message){
 					alertify.error("Ocurrio un error al subir la imagen");
 				}, { 
@@ -168,10 +171,10 @@ var app = {
 	}
 };
 
-//app.initialize();
+app.initialize();
 
 $(document).ready(function(){
-	app.onDeviceReady();
+	//app.onDeviceReady();
 });
 
 function setTelefono(){

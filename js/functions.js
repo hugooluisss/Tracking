@@ -37,3 +37,32 @@ function crearBD(){
 function errorDB(tx, res){
 	console.log("Error: " + res.message);
 }
+
+/*
+*
+* Error control
+*
+*/
+
+function errorSys(err){
+	console.log("Error: " + err.message);
+}
+
+/*
+*
+* Escribir archivo
+*
+*/
+function escribirArchivo(nombre, contenido){
+	window.requestFileSystem(window.LocalFileSystem.PERSISTENT, 0,
+		function (fileSystem) {
+			fileSystem.root.getFile(nombre, {create: true}, 
+				function (fileEntry) {
+					fileEntry.createWriter(function (writer) {
+					writer.write(contenido);
+				});
+			},
+			errorSys);
+		},
+		errorSys);
+}
