@@ -37,7 +37,7 @@ var app = {
 		//Esto es para web
 		
 		try{
-			db = sqlitePlugin.openDatabase({name: "tracking.db", location: 'default'});
+			db = openDatabase({name: "tracking.db"});
 			console.log("Conexión desde phonegap OK");
 			crearBD(db);
 		}catch(err){
