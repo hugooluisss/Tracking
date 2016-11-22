@@ -117,7 +117,7 @@ var app = {
 			else if ($("#lstImg").find("img").length < 4){
 				navigator.camera.getPicture(function(imageURI) {
 					var img = $("<img />");
-					alert(imageData);
+					alert(imageURI);
 					img.attr("src", imageURI);
 					//subirFotoPerfil(imageData);
 					$("#lstImg").append(img);
