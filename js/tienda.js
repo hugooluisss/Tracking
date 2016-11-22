@@ -9,19 +9,7 @@ TTienda = function(){
 				if (fn.after !== undefined) fn.after();
 			}, errorDB);
 		});
- 
 	};
-	
-	this.getAll = function(fn){
-		if (fn.before !== undefined) fn.before();
-		db.transaction(function(tx) {
-			tx.executeSql("select * from tienda", [], function(tx, results){
-				if (fn.after !== undefined) fn.after(results.rows);
-			}, errorDB);
-		});
-		
-		//return new Array();
-	}
 	
 	this.truncate = function(fn){
 		if (fn.before !== undefined) fn.before();

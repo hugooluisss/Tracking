@@ -104,23 +104,21 @@ var app = {
 };
 
 app.initialize();
-/*
+
 $(document).ready(function(){
-	app.onDeviceReady();
+	//app.onDeviceReady();
 });
-*/
+
 
 function actualizarListaTiendas(){
-	var obj = new TTienda;
-	
-	obj.getAll({
-		before: function(){
-			alertify.log("Actualizando la lista de tiendas, por favor espere");
-			
-			$("#getTiendas").show();
-		}, after: function(rows){
+	db.transaction(function(tx) {
+		tx.executeSql("select * from tienda", [], function(tx, results){
 			$("#selTienda").empty();
+			alertify.log("Actualizando la lista de tiendas, por favor espere");
+			$("#getTiendas").show();
+			
 			var cont = 1;
+			var rows = results.rows;
 			$.each(rows, function(i, el){
 				$("#selTienda").append('<option value="' + el.clave + '">' + el.nombre + '</option>');
 					
@@ -129,6 +127,6 @@ function actualizarListaTiendas(){
 			
 			$("#getTiendas").hide();
 			alertify.success("Lista actualizada");
-		}
+		}, errorDB);
 	});
 }
