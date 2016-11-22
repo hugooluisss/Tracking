@@ -187,6 +187,7 @@ var app = {
 								position.coords.altitude,
 								position.coords.longitud, 
 								"Alta",
+								$("#txtTienda").attr("identificador"),
 								fotos[1],
 								fotos[2],
 								fotos[3],
