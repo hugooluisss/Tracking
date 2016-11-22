@@ -167,7 +167,29 @@ var app = {
 			}else if($("#txtTienda").attr("identificador") == ''){
 				alertify.error("Selecciona una tienda");
 			}else{
+				var foto1 = $("#lstImg").find("img")[0].attr("src");
+				var foto2 = $("#lstImg").find("img")[1].attr("src");
+				var foto3 = $("#lstImg").find("img")[2].attr("src");
+				var foto4 = $("#lstImg").find("img")[3].attr("src");
+				
 				navigator.geolocation.getCurrentPosition(function(position){
+					db.transaction(function(tx){
+						tx.executeSql("INSERT INTO codigo (codigo, celular, observaciones, lat, lng, flag, tienda, foto1, foto2, foto3, foto4) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
+							$("#txtCodigo").val(), 
+							tel, 
+							$("#txtObservaciones").val(), 
+							position.coords.altitude,
+							position.coords.longitud, 
+							"Alta",
+							foto1,
+							foto2,
+							foto3,
+							foto4], function(tx, res) {
+								console.log("Código guardado");
+								alertify.success("Código almacenado");
+							}, errorDB);
+							
+					});
 					alert('Latitude: '          + position.coords.latitude          + '\n' +
 						'Longitude: '         + position.coords.longitude         + '\n' +
 						'Altitude: '          + position.coords.altitude          + '\n' +
