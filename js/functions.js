@@ -45,7 +45,7 @@ function errorDB(tx, res){
 */
 
 function errorSys(err){
-	console.log("Error: " + err.message);
+	console.log("Error: " + err.target.error.code);
 }
 
 /*
@@ -60,9 +60,9 @@ function escribirArchivo(nombre, contenido){
 				function (fileEntry) {
 					fileEntry.createWriter(function (writer) {
 					writer.write(contenido);
-				});
-			},
-			errorSys);
+				}
+			);
 		},
 		errorSys);
+	}, errorSys);
 }

@@ -120,7 +120,7 @@ var app = {
 					img.attr("src", imageData);
 					//subirFotoPerfil(imageData);
 					$("#lstImg").append(img);
-					escribirArchivo($("#txtCodigo").val() + "/img" + $("#lstImg").find("img").length + ".txt", imageData);
+					escribirArchivo($("#txtCodigo").val() + "_" + $("#lstImg").find("img").length + ".txt", imageData);
 				}, function(message){
 					alertify.error("Ocurrio un error al subir la imagen");
 				}, { 
