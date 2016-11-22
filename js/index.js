@@ -122,12 +122,12 @@ var app = {
 								//nomimage=imageURI.substr(imageURI.lastIndexOf('/')+1);
 								nomimage = "img_" + $("#lstImg").find("img").length + ".jpg";
 								fileEntry.copyTo(dir, nomimage, function(entry){
-									console.log(fs.root.nativeURL + entry.fullPath);
+									console.log(entry.fullPath);
 									
 									var img = $("<img />");
 									
 									$("#lstImg").append(img);
-									img.attr("src", fileSys.root.nativeURL + entry.fullPath);
+									img.attr("src", entry.nativeURL);
 									
 								}, errorSys); 
 							}, errorSys); 
