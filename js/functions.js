@@ -17,7 +17,7 @@ function reposition(modal) {
 * Crea la base de datos
 *
 */
-function crearBD(db){
+function crearBD(){
 	db.transaction(function(tx){
 		//tx.executeSql('drop table if exists tienda');
 		
