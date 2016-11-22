@@ -125,6 +125,8 @@ var app = {
 					window.resolveLocalFileSystemURI(imageURI, function(fileEntry){
 						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) { 
 							fileSys.root.getDirectory("carpeta", {create: true, exclusive: false}, function(dir) { 
+								nomimage=imageURI.substr(imageURI.lastIndexOf('/')+1);
+								
 								fileEntry.copyTo(dir, nomimage, function(entry){
 									alert(entry.fullPath);
 								}, errorSys); 
