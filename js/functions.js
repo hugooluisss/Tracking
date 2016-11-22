@@ -19,9 +19,9 @@ function reposition(modal) {
 */
 function crearBD(db){
 	db.transaction(function(tx){
-		tx.executeSql('drop table if exists tienda');
+		//tx.executeSql('drop table if exists tienda');
 		
-		tx.executeSql('CREATE TABLE tienda (clave integer primary key, nombre text)', [], function(){
+		tx.executeSql('CREATE TABLE IF NOT EXISTS tienda (clave integer primary key, nombre text)', [], function(){
 			console.log("tabla tienda creada");
 		}, errorDB);
 	});
