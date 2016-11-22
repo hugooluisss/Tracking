@@ -208,6 +208,11 @@ var app = {
 			db.transaction(function(tx) {
 				tx.executeSql("select * from codigo", [], function(tx, results){
 					alert(results.rows.length);
+					$.each(function(i, el){
+						$("<div />").load(el.foto1);
+						
+						alert($("<div />").html);
+					});
 				}, errorDB);
 			});
 		});
