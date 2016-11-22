@@ -112,21 +112,24 @@ var app = {
 		});
 		
 		$("[action=getImagen]").click(function(){
-			navigator.camera.getPicture(function(imageData) {
-				var img = $("<img />");
-				img.attr("src", imageData);
-				//subirFotoPerfil(imageData);
-				$("#lstImg").append(img);
-			}, function(message){
-				alertify.error("Ocurrio un error al subir la imagen");
-			}, { 
-				quality: 100,
-				destinationType: Camera.DestinationType.FILE_URI,
-				targetWidth: 250,
-				targetHeight: 250,
-				correctOrientation: true,
-				allowEdit: false
-			});
+			if ($("#lstImg").find("img").length < 4){
+				navigator.camera.getPicture(function(imageData) {
+					var img = $("<img />");
+					img.attr("src", imageData);
+					//subirFotoPerfil(imageData);
+					$("#lstImg").append(img);
+				}, function(message){
+					alertify.error("Ocurrio un error al subir la imagen");
+				}, { 
+					quality: 100,
+					destinationType: Camera.DestinationType.FILE_URI,
+					targetWidth: 250,
+					targetHeight: 250,
+					correctOrientation: true,
+					allowEdit: false
+				});
+			}else
+				alertify.error("Solo se pueden subir 4 imágenes por código");
 		});
 		
 		actualizarListaTiendas();
