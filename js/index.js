@@ -181,16 +181,17 @@ var app = {
 				navigator.geolocation.getCurrentPosition(function(position){
 					db.transaction(function(tx){
 						tx.executeSql("INSERT INTO codigo (codigo, celular, observaciones, lat, lng, flag, tienda, foto1, foto2, foto3, foto4) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
-							$("#txtCodigo").val(), 
-							tel, 
-							$("#txtObservaciones").val(), 
-							position.coords.altitude,
-							position.coords.longitud, 
-							"Alta",
-							fotos[1],
-							fotos[2],
-							fotos[3],
-							fotos[4], function(tx, res) {
+								$("#txtCodigo").val(), 
+								tel, 
+								$("#txtObservaciones").val(), 
+								position.coords.altitude,
+								position.coords.longitud, 
+								"Alta",
+								fotos[1],
+								fotos[2],
+								fotos[3],
+								fotos[4]
+							], function(tx, res) {
 								console.log("Código guardado");
 								alertify.success("Código almacenado");
 							}, errorDB);
