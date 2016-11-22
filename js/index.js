@@ -113,10 +113,11 @@ var app = {
 		
 		$("[action=getImagen]").click(function(){
 			if ($("#txtCodigo").val() == '')
-				justify.error("Primero escanea el código");
+				alertify.error("Primero escanea el código");
 			else if ($("#lstImg").find("img").length < 4){
 				navigator.camera.getPicture(function(imageData) {
 					var img = $("<img />");
+					alert(imageData);
 					img.attr("src", imageData);
 					//subirFotoPerfil(imageData);
 					$("#lstImg").append(img);
