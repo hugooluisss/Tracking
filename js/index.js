@@ -116,19 +116,19 @@ var app = {
 				alertify.error("Primero escanea el código");
 			else if ($("#lstImg").find("img").length < 4){
 				navigator.camera.getPicture(function(imageURI) {
-					var img = $("<img />");
-					alert(imageURI);
-					img.attr("src", imageURI);
-					//subirFotoPerfil(imageData);
-					$("#lstImg").append(img);
-					
 					window.resolveLocalFileSystemURI(imageURI, function(fileEntry){
 						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) { 
-							fileSys.root.getDirectory("carpeta", {create: true, exclusive: false}, function(dir) { 
-								nomimage=imageURI.substr(imageURI.lastIndexOf('/')+1);
-								
+							fileSys.root.getDirectory($("#txtCodigo").val(), {create: true, exclusive: false}, function(dir) { 
+								//nomimage=imageURI.substr(imageURI.lastIndexOf('/')+1);
+								nomimage = "img_" + $("#lstImg").find("img").length + ".jpg";
 								fileEntry.copyTo(dir, nomimage, function(entry){
-									alert(entry.fullPath);
+									console.log(entry.fullPath);
+									
+									var img = $("<img />");
+									
+									$("#lstImg").append(img);
+									img.attr("src", entry.fullPath);
+									
 								}, errorSys); 
 							}, errorSys); 
 						}, errorSys); 
