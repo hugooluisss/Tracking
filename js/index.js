@@ -133,33 +133,95 @@ var app = {
 		});
 		
 		actualizarListaTiendas();
+		
+		$("[action=setTelefono]").click(function(){
+			setTelefono();
+		});
+		
+		$("#btnSave").click(function(){
+			var tel = window.localStorage.getItem("telefono");
+			if (tel == ''){
+				alertify.error("Es necesario indicar tu número de teléfono");
+				setTelefono();
+			}
+			if($("#txtCodigo").val() == ''){
+				alertify.error("Escanea el código");
+			}else if($("#lstImg").find("img").length < 1){
+				alertify.error("Se necesita mínimo una imagen");
+			}else if($("#txtTienda").attr("identificador") == ''){
+				alertify.error("Selecciona una tienda");
+			}else{
+				navigator.geolocation.getCurrentPosition(function(position){
+					alert('Latitude: '          + position.coords.latitude          + '\n' +
+						'Longitude: '         + position.coords.longitude         + '\n' +
+						'Altitude: '          + position.coords.altitude          + '\n' +
+						'Accuracy: '          + position.coords.accuracy          + '\n' +
+						'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+						'Heading: '           + position.coords.heading           + '\n' +
+						'Speed: '             + position.coords.speed             + '\n' +
+						'Timestamp: '         + position.timestamp                + '\n');
+				}, function(error){
+					alertify.error("No se pudo conectar");
+				});
+			}
+		});
 	}
 };
 
-app.initialize();
+//app.initialize();
 
 $(document).ready(function(){
-	//app.onDeviceReady();
+	app.onDeviceReady();
 });
 
+function setTelefono(){
+	alertify.prompt("Escribe tu número telefónico", function (e, str) { 
+		if (e){
+			if (!isNaN(str) && str.length >= 10){
+				window.localStorage.clear();
+				window.localStorage.setItem("telefono", str);
+				
+				alertify.success("Teléfono almacenado");
+			}else
+				alertify.error(str + " No es un número telefónico válido");
+		}
+	});
+}
 
 function actualizarListaTiendas(){
 	db.transaction(function(tx) {
 		tx.executeSql("select * from tienda", [], function(tx, results){
-			$("#selTienda").empty();
-			alertify.log("Actualizando la lista de tiendas, por favor espere");
 			$("#getTiendas").show();
 			
 			var cont = 1;
 			var rows = results.rows;
+			var tiendas = new Array();
 			$.each(rows, function(i, el){
-				$("#selTienda").append('<option value="' + el.clave + '">' + el.nombre + '</option>');
+				var data = new Array();
+				data.value = el.clave;
+				data.label = el.nombre
+				tiendas.push(data);
+			});
+			$("#txtTienda").autocomplete({
+				source: tiendas,
+				focus: function(event, ui){
+					$("#txtTienda").attr("identificador", "");
 					
-				cont++;
+					$("#txtTienda").val(ui.item.label);
+					$("#txtTienda").attr("identificador", ui.item.value);
+					
+					return false;
+				},
+				select: function(event, ui){
+					console.log(ui.item);
+					$("#txtTienda").val(ui.item.label);
+					$("#txtTienda").attr("identificador", ui.item.value);
+					
+					return false;
+				}
 			});
 			
 			$("#getTiendas").hide();
-			alertify.success("Lista actualizada");
 		}, errorDB);
 	});
 }
