@@ -180,7 +180,7 @@ var app = {
 				
 				navigator.geolocation.getCurrentPosition(function(position){
 					db.transaction(function(tx){
-						tx.executeSql("INSERT INTO codigo (codigo, celular, observaciones, lat, lng, flag, tienda, foto1, foto2, foto3, foto4) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
+						tx.executeSql("INSERT INTO codigo (codigo, celular, obs, lat, lng, flag, tienda, foto1, foto2, foto3, foto4) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
 								$("#txtCodigo").val(), 
 								tel, 
 								$("#txtObservaciones").val(), 
