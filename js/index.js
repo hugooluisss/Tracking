@@ -37,13 +37,28 @@ var app = {
     	try{
 	    	db = SQLitePlugin.openDatabase("tracking.db", "1.0", "Just a Dummy DB", -1);
 	    	//db = window.openDatabase("tracking.db", "1.0", "Just a Dummy DB", 200000);
-	    	alert("conexion ok");
+	    	alert("conexion ok SQLitePlugin");
 	    	crearBD(db);
 	    }catch(err){
 		    alert("No se pudo conectar a la base de datos: " + err.message);
-		    
-		    db = sqlitePlugin.openDatabase("tracking.db", "1.0", "Just a Dummy DB", -1);
 	    }
+	    
+	    try{
+	    	db = sqlitePlugin.openDatabase("tracking.db", "1.0", "Just a Dummy DB", -1);
+	    	alert("conexion ok sqlitePlugin");
+	    	crearBD(db);
+	    }catch(err){
+		    alert("No se pudo conectar a la base de datos: " + err.message);
+	    }
+	    
+	    try{
+	    	db = openDatabase("tracking.db", "1.0", "Just a Dummy DB", -1);
+	    	alert("conexion ok Solo");
+	    	crearBD(db);
+	    }catch(err){
+		    alert("No se pudo conectar a la base de datos: " + err.message);
+	    }
+	    
         //app.receivedEvent('deviceready');
         /*if (navigator.connection.type != Connection.NONE)
         	alert("Si hay internet");
