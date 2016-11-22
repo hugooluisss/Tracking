@@ -129,7 +129,7 @@ var app = {
 					allowEdit: false
 				});
 			}else
-				alertify.error("Solo se pueden subir 4 imágenes por código");
+				alertify.error("Solo permiten 4 imágenes por código");
 		});
 		
 		actualizarListaTiendas();
