@@ -205,9 +205,11 @@ var app = {
 		});
 		
 		$("[action=enviarAll]").click(function(){
-			tx.executeSql("select * from codigo", [], function(tx, results){
-				alert(results.rows);
-			}, errorDB);
+			db.transaction(function(tx) {
+				tx.executeSql("select * from codigo", [], function(tx, results){
+					alert(results.rows);
+				}, errorDB);
+			});
 		});
 	}
 };
