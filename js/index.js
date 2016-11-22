@@ -177,37 +177,48 @@ var app = {
 					fotos[i + 1] = $(this).attr("src");
 				});
 				
-				
 				navigator.geolocation.getCurrentPosition(function(position){
 					db.transaction(function(tx){
-						tx.executeSql("INSERT INTO codigo (codigo, celular, obs, lat, lng, flag, tienda, foto1, foto2, foto3, foto4) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
-								$("#txtCodigo").val(), 
-								tel, 
-								$("#txtObservaciones").val(), 
-								position.coords.altitude,
-								position.coords.longitud, 
-								"Alta",
-								$("#txtTienda").attr("identificador"),
-								fotos[1],
-								fotos[2],
-								fotos[3],
-								fotos[4]
-							], function(tx, res) {
-								console.log("Código guardado");
-								alertify.success("Código almacenado");
-							}, errorDB);
+						tx.executeSql("select * from codigo where codigo = ?", [$("#txtCodigo").val()], function(tx, res){
+							tx.executeSql("INSERT INTO codigo (codigo, celular, obs, lat, lng, flag, tienda, foto1, foto2, foto3, foto4) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
+									$("#txtCodigo").val(), 
+									tel, 
+									$("#txtObservaciones").val(), 
+									position.coords.altitude,
+									position.coords.longitud, 
+									"Alta",
+									$("#txtTienda").attr("identificador"),
+									fotos[1],
+									fotos[2],
+									fotos[3],
+									fotos[4]
+								], function(tx, res) {
+									console.log("Código guardado");
+									alertify.success("Código almacenado");
+								}, errorDB);
+						}, function(tx, res){
+							tx.executeSql("update codigo set codigo = ?, celular = ?, obs = ?, lat = ?, lng = ?, flag = ?, tienda = ?, foto1 = ?, foto2 = ?, foto3 = ?, foto4 = ? where codigo = ?", [
+									$("#txtCodigo").val(), 
+									tel, 
+									$("#txtObservaciones").val(), 
+									position.coords.altitude,
+									position.coords.longitud, 
+									"Alta",
+									$("#txtTienda").attr("identificador"),
+									fotos[1],
+									fotos[2],
+									fotos[3],
+									fotos[4],
+									$("#txtCodigo").val()
+								], function(tx, res) {
+									console.log("Código actualizado");
+									alertify.success("Código almacenado");
+								}, errorDB);
 							
+						});
 					});
-					alert('Latitude: '          + position.coords.latitude          + '\n' +
-						'Longitude: '         + position.coords.longitude         + '\n' +
-						'Altitude: '          + position.coords.altitude          + '\n' +
-						'Accuracy: '          + position.coords.accuracy          + '\n' +
-						'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-						'Heading: '           + position.coords.heading           + '\n' +
-						'Speed: '             + position.coords.speed             + '\n' +
-						'Timestamp: '         + position.timestamp                + '\n');
 				}, function(error){
-					alertify.error("No se pudo conectar");
+					alertify.error("No se obtener tu ubicación");
 				});
 			}
 		});
