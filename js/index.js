@@ -87,15 +87,26 @@ var app = {
 					
 					var obj = new TTienda;
 					obj.truncate({
+						before: function(){
+							$("#getTiendas").show();	
+						},
 						after: function(){
 							$.each(resp, function(i, el){
 								obj.add(el.id, el.name, {});
 							});
-							
+							$("#getTiendas").hide();
 							actualizarListaTiendas();
 						}
 					});
 				}
+			});
+		});
+		
+		$("[action=getCode]").click(function(){
+			cordova.plugins.barcodeScanner.scan(function(result){
+				$("#txtCodigo").val(result.text);
+			},function(error){
+				alertify.error("Ocurrió un error al leer el código");
 			});
 		});
 		
