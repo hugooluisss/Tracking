@@ -167,10 +167,16 @@ var app = {
 			}else if($("#txtTienda").attr("identificador") == ''){
 				alertify.error("Selecciona una tienda");
 			}else{
-				var foto1 = $("#lstImg").find("img")[0].attr("src");
-				var foto2 = $("#lstImg").find("img")[1].attr("src");
-				var foto3 = $("#lstImg").find("img")[2].attr("src");
-				var foto4 = $("#lstImg").find("img")[3].attr("src");
+				var fotos = new Array();
+				fotos[1] = "";
+				fotos[2] = "";
+				fotos[3] = "";
+				fotos[4] = "";
+				
+				$("#lstImg").find("img").each(function(i){
+					fotos[i + 1] = $(this).attr("src");
+				});
+				
 				
 				navigator.geolocation.getCurrentPosition(function(position){
 					db.transaction(function(tx){
@@ -181,10 +187,10 @@ var app = {
 							position.coords.altitude,
 							position.coords.longitud, 
 							"Alta",
-							foto1,
-							foto2,
-							foto3,
-							foto4], function(tx, res) {
+							fotos[1],
+							fotos[2],
+							fotos[3],
+							fotos[4], function(tx, res) {
 								console.log("Código guardado");
 								alertify.success("Código almacenado");
 							}, errorDB);
