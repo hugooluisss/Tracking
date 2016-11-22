@@ -131,7 +131,7 @@ var app = {
 					targetHeight: 250,
 					correctOrientation: true,
 					allowEdit: false,
-					sourceType: PHOTOLIBRARY
+					sourceType: Camera.PictureSourceType.PHOTOLIBRARY
 				});
 			}else
 				alertify.error("Solo permiten 4 imágenes por código");
