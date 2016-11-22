@@ -35,8 +35,9 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
     	try{
-	    	db = window.sqlitePlugin.openDatabase("tracking.db", "1.0", "Just a Dummy DB", -1);
-	    	db = window.openDatabase("tracking.db", "1.0", "Just a Dummy DB", 200000);
+	    	db = SQLitePlugin.openDatabase("tracking.db", "1.0", "Just a Dummy DB", -1);
+	    	//db = window.openDatabase("tracking.db", "1.0", "Just a Dummy DB", 200000);
+	    	alert("conexion ok");
 	    	crearBD(db);
 	    }catch(err){
 		    alert("No se pudo conectar a la base de datos: " + err.message);
