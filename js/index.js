@@ -101,12 +101,12 @@ var app = {
 	}
 };
 
-//app.initialize();
-
+app.initialize();
+/*
 $(document).ready(function(){
 	app.onDeviceReady();
 });
-
+*/
 
 function actualizarListaTiendas(){
 	var obj = new TTienda;
