@@ -69,6 +69,7 @@ var app = {
 			$("[vista=home]").hide();
 			
 			$("#getTiendas").hide();
+			$("#lstImg").find("img").remove();
 		});
         
 		$("#backToHome").click(function(){
@@ -124,7 +125,7 @@ var app = {
 				targetWidth: 250,
 				targetHeight: 250,
 				correctOrientation: true,
-				allowEdit: true
+				allowEdit: false
 			});
 		});
 		
