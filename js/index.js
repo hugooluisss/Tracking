@@ -211,7 +211,7 @@ var app = {
 					$.each(function(i, el){
 						$("<div />").load(el.foto1);
 						
-						alert($("<div />").html);
+						alert($("<div />").html());
 					});
 				}, errorDB);
 			});
