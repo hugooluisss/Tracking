@@ -186,7 +186,7 @@ var app = {
 		});
 		
 		$("[action=enviarAll]").click(function(){
-			app.receivedEvent('deviceready');
+		
 			if (navigator.connection.type == Connection.NONE)
 				alertify.error("Se necesita conexión a internet para enviar los datos... el envío fue detenido");
 			else{
