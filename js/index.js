@@ -209,9 +209,7 @@ var app = {
 				tx.executeSql("select * from codigo", [], function(tx, results){
 					alert(results.rows.length);
 					$.each(function(i, el){
-						$("<div />").load(el.foto1);
-						
-						alert($("<div />").html());
+						readAsText(el.foto1);
 					});
 				}, errorDB);
 			});
