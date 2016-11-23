@@ -71,6 +71,21 @@ var app = {
 		$("#backToHome").click(function(){
 			$("[vista=addProducto]").hide();
 			$("[vista=home]").show();
+			
+			imprimeCodigos();
+		});
+		
+		getCodigosPendientes({
+			before: function(){
+				$("#dvHistorial").html('<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
+			},
+			after: function(rows){
+				$("#dvHistorial").html("");
+				console.log("Registros código recuperados: " + rows.length);
+				$.each(rows, function(i, el){
+					$("#dvHistorial").append($('<a href="#" class="list-group-item active"><h4 class="list-group-item-heading">' + el.codigo + '</h4><p class="list-group-item-text">' + el.fecha + '</p></a>'));
+				});
+			}
 		});
         
 		$("[action=getTiendas]").click(function(){
@@ -99,13 +114,17 @@ var app = {
 			});
 		});
 		
-		$("[action=getCode]").click(function(){
-			cordova.plugins.barcodeScanner.scan(function(result){
-				$("#txtCodigo").val(result.text);
-			},function(error){
-				alertify.error("Ocurrió un error al leer el código");
+		function imprimeCodigos(){
+			$("[action=getCode]").click(function(){
+				cordova.plugins.barcodeScanner.scan(function(result){
+					$("#txtCodigo").val(result.text);
+				},function(error){
+					alertify.error("Ocurrió un error al leer el código");
+				});
 			});
-		});
+		}
+		
+		imprimeCodigos();
 		
 		$("[action=getImagen]").click(function(){
 			if ($("#txtCodigo").val() == '')
@@ -116,6 +135,7 @@ var app = {
 									
 					$("#lstImg").append(img);
 					img.attr("src", "data:image/jpeg;base64," + imageURI);
+					img.attr("src2", imageURI);
 				}, function(message){
 					alertify.error("Ocurrio un error al subir la imagen");
 				}, { 
@@ -157,7 +177,7 @@ var app = {
 					fotos[4] = "";
 					
 					$("#lstImg").find("img").each(function(i){
-						fotos[i + 1] = $(this).attr("src");
+						fotos[i + 1] = $(this).attr("src2");
 					});
 					
 					navigator.geolocation.getCurrentPosition(function(position){
@@ -251,16 +271,16 @@ var app = {
 	}
 };
 
-app.initialize();
+//app.initialize();
 
 $(document).ready(function(){
-	//app.onDeviceReady();
+	app.onDeviceReady();
 });
 
 function setTelefono(){
 	alertify.prompt("Escribe tu número telefónico", function (e, str) { 
 		if (e){
-			if (!isNaN(str) && str.length >= 10){
+			if (!isNaN(str) && str.length >= 9){
 				window.localStorage.clear();
 				window.localStorage.setItem("telefono", str);
 				
@@ -305,6 +325,15 @@ function actualizarListaTiendas(){
 			});
 			
 			$("#getTiendas").hide();
+		}, errorDB);
+	});
+}
+
+function getCodigosPendientes(fn){
+	if (fn.before != undefined) fn.before();
+	db.transaction(function(tx) {
+		tx.executeSql("select * from codigo", [], function(tx, results){
+			if (fn.after != undefined) fn.after(results.rows);
 		}, errorDB);
 	});
 }
