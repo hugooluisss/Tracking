@@ -71,21 +71,7 @@ var app = {
 		$("#backToHome").click(function(){
 			$("[vista=addProducto]").hide();
 			$("[vista=home]").show();
-			
-			imprimeCodigos();
-		});
-		
-		getCodigosPendientes({
-			before: function(){
-				$("#dvHistorial").html('<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
-			},
-			after: function(rows){
-				$("#dvHistorial").html("");
-				console.log("Registros código recuperados: " + rows.length);
-				$.each(rows, function(i, el){
-					$("#dvHistorial").append($('<a href="#" class="list-group-item active"><h4 class="list-group-item-heading">' + el.codigo + '</h4><p class="list-group-item-text">' + el.fecha + '</p></a>'));
-				});
-			}
+			getShowCodigosPendientes();
 		});
         
 		$("[action=getTiendas]").click(function(){
@@ -124,7 +110,7 @@ var app = {
 			});
 		}
 		
-		imprimeCodigos();
+		getShowCodigosPendientes();
 		
 		$("[action=getImagen]").click(function(){
 			if ($("#txtCodigo").val() == '')
@@ -336,4 +322,20 @@ function getCodigosPendientes(fn){
 			if (fn.after != undefined) fn.after(results.rows);
 		}, errorDB);
 	});
+}
+
+function getShowCodigosPendientes(){
+	getCodigosPendientes({
+		before: function(){
+			$("#dvHistorial").html('<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
+		},
+		after: function(rows){
+			$("#dvHistorial").html("");
+			console.log("Registros código recuperados: " + rows.length);
+			$.each(rows, function(i, el){
+				$("#dvHistorial").append($('<a href="#" class="list-group-item active"><h4 class="list-group-item-heading">' + el.codigo + '</h4><p class="list-group-item-text">' + el.fecha + '</p></a>'));
+			});
+		}
+	});
+	
 }
