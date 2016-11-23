@@ -25,7 +25,14 @@ function crearBD(){
 			console.log("tabla tienda creada");
 		}, errorDB);
 		
+		/*
 		tx.executeSql('CREATE TABLE IF NOT EXISTS codigo (codigo integer primary key, celular text, obs text, lat float, lng float, flag text, tienda integer, foto1 text, foto2 text, foto3 text, foto4 text)', [], function(){
+			console.log("tabla codigos creada");
+		}, errorDB);
+		*/
+		
+		tx.executeSql('drop table codigo');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS codigo (codigo integer primary key, celular text, obs text, lat float, lng float, flag text, tienda integer, foto1 blob, foto2 blob, foto3 blob, foto4 blob)', [], function(){
 			console.log("tabla codigos creada");
 		}, errorDB);
 	});

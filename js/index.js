@@ -115,7 +115,13 @@ var app = {
 			if ($("#txtCodigo").val() == '')
 				alertify.error("Primero escanea el código");
 			else if ($("#lstImg").find("img").length < 4){
-				navigator.camera.getPicture(function(imageURI) {
+				navigator.camera.getPicture(function(imageURI){
+					var img = $("<img />");
+									
+					$("#lstImg").append(img);
+					img.attr("src", "data:image/jpeg;base64," + imageURI);
+					
+					/*
 					window.resolveLocalFileSystemURI(imageURI, function(fileEntry){
 						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) { 
 							fileSys.root.getDirectory($("#txtCodigo").val(), {create: true, exclusive: false}, function(dir) { 
@@ -133,12 +139,13 @@ var app = {
 							}, errorSys); 
 						}, errorSys); 
 					}, errorSys);
-					
+					*/
 				}, function(message){
 					alertify.error("Ocurrio un error al subir la imagen");
 				}, { 
 					quality: 100,
-					destinationType: Camera.DestinationType.FILE_URI,
+					//destinationType: Camera.DestinationType.FILE_URI,
+					destinationType: Camera.DestinationType.DATA_URL,
 					targetWidth: 250,
 					targetHeight: 250,
 					correctOrientation: true,
@@ -175,6 +182,8 @@ var app = {
 				
 				$("#lstImg").find("img").each(function(i){
 					fotos[i + 1] = $(this).attr("src");
+					
+					alert(fotos[i + 1]);
 				});
 				
 				navigator.geolocation.getCurrentPosition(function(position){
