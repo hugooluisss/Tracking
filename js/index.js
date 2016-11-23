@@ -161,6 +161,8 @@ var app = {
 				navigator.geolocation.getCurrentPosition(function(position){
 					db.transaction(function(tx){
 						tx.executeSql("delete from codigo where codigo = ?", [$("#txtCodigo").val()], function(tx, res){
+							var tel = window.localStorage.getItem("telefono");
+							
 							tx.executeSql("INSERT INTO codigo (codigo, celular, obs, lat, lng, flag, tienda, foto1, foto2, foto3, foto4) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
 									$("#txtCodigo").val(), 
 									tel, 
