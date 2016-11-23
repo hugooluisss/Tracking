@@ -45,13 +45,7 @@ var app = {
 			crearBD(db);
 			console.log("Se inicio la conexión a la base para web");
 		}
-	    
-		//app.receivedEvent('deviceready');
-		/*if (navigator.connection.type != Connection.NONE)
-			alert("Si hay internet");
-		else
-			alert("No hay internet");
-		*/	
+		
 		$("[action=acercaDe]").click(function(){
 			$("#menuPrincipal, #menuPrincipal2").removeClass("in");
 			
@@ -120,26 +114,6 @@ var app = {
 									
 					$("#lstImg").append(img);
 					img.attr("src", "data:image/jpeg;base64," + imageURI);
-					
-					/*
-					window.resolveLocalFileSystemURI(imageURI, function(fileEntry){
-						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) { 
-							fileSys.root.getDirectory($("#txtCodigo").val(), {create: true, exclusive: false}, function(dir) { 
-								//nomimage=imageURI.substr(imageURI.lastIndexOf('/')+1);
-								nomimage = "img_" + $("#lstImg").find("img").length + ".jpg";
-								fileEntry.copyTo(dir, nomimage, function(entry){
-									console.log(entry.fullPath);
-									
-									var img = $("<img />");
-									
-									$("#lstImg").append(img);
-									img.attr("src", entry.nativeURL);
-									
-								}, errorSys); 
-							}, errorSys); 
-						}, errorSys); 
-					}, errorSys);
-					*/
 				}, function(message){
 					alertify.error("Ocurrio un error al subir la imagen");
 				}, { 
@@ -212,37 +186,50 @@ var app = {
 		});
 		
 		$("[action=enviarAll]").click(function(){
-			db.transaction(function(tx) {
-				tx.executeSql("select * from codigo", [], function(tx, results){
-					var total = 0;
-					var band = 0;
-					$.each(results.rows, function(i, el){
-						band++;
-						$.post("http://www.neoprojects.com.pe/neotracking-web/public/api/tracking", {
-							"photo1": el.foto1,
-							"photo2": el.foto2,
-							"photo3": el.foto3,
-							"photo4": el.foto4,
-							"num": el.celular,
-							"obs": el.obs,
-							"lat": el.lat,
-							"lng": el.lng,
-							"flag": el.flag,
-							"codigo": el.codigo,
-							"tienda": el.tienda,
-							"guid": "1",
-						}, function(resp){
-							if (resp.code == el.codigo){
-								total++;
-							}
-							
-							band--;
-							if (band == 0)
-								alertify.log("Se enviaron " + total + " códigos");
-						}, "json");
-					});
-				}, errorDB);
-			});
+			app.receivedEvent('deviceready');
+			if (navigator.connection.type == Connection.NONE)
+				alertify.error("Se necesita conexión a internet para enviar los datos... el envío fue detenido");
+			else{
+				var btn = $(this);
+				btn.addClass("fa-spin");
+				db.transaction(function(tx) {
+					tx.executeSql("select * from codigo", [], function(tx, results){
+						var total = 0;
+						var band = 0;
+						alertify.log("Enviando datos");
+						
+						$.each(results.rows, function(i, el){
+							band++;
+							$.post("http://www.neoprojects.com.pe/neotracking-web/public/api/tracking", {
+								"photo1": el.foto1,
+								"photo2": el.foto2,
+								"photo3": el.foto3,
+								"photo4": el.foto4,
+								"num": el.celular,
+								"obs": el.obs,
+								"lat": el.lat,
+								"lng": el.lng,
+								"flag": el.flag,
+								"codigo": el.codigo,
+								"tienda": el.tienda,
+								"guid": "1",
+							}, function(resp){
+								if (resp.code == el.codigo){
+									total++;
+									
+									tx.executeSql("delete from codigo where codigo = ?", [el.codigo]);
+								}
+								
+								band--;
+								if (band == 0){
+									alertify.success("Se enviaron " + total + " códigos");
+									btn.removeClass("fa-spin");
+								}
+							}, "json");
+						});
+					}, errorDB);
+				});
+			}
 		});
 	}
 };
