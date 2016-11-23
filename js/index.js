@@ -64,6 +64,8 @@ var app = {
 			
 			$("#getTiendas").hide();
 			$("#lstImg").find("img").remove();
+			
+			$("#btnSave").prop("disabled", false);
 		});
         
 		$("#backToHome").click(function(){
@@ -162,12 +164,13 @@ var app = {
 					db.transaction(function(tx){
 						tx.executeSql("delete from codigo where codigo = ?", [$("#txtCodigo").val()], function(tx, res){
 							var tel = window.localStorage.getItem("telefono");
-							
+							console.log(tel);
+							$("#btnSave").prop("disabled", true);
 							tx.executeSql("INSERT INTO codigo (codigo, celular, obs, lat, lng, flag, tienda, foto1, foto2, foto3, foto4) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
 									$("#txtCodigo").val(), 
 									tel, 
 									$("#txtObservaciones").val(), 
-									position.coords.altitude,
+									position.coords.latitude,
 									position.coords.longitude, 
 									$("#chkBaja").is(":checked")?"Baja":"Alta",
 									$("#txtTienda").attr("identificador"),
@@ -178,6 +181,8 @@ var app = {
 								], function(tx, res) {
 									console.log("Código guardado");
 									alertify.success("Código almacenado");
+									
+									$("#btnSave").prop("disabled", false);
 								}, errorDB);
 								
 								$("#lstImg").find("img").remove();
