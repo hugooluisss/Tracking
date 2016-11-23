@@ -243,6 +243,8 @@ var app = {
 									if (band == 0){
 										alertify.success("Se enviaron " + total + " códigos");
 										btn.removeClass("fa-spin");
+										
+										getShowCodigosPendientes();
 									}
 								}, "json");
 							});
@@ -333,7 +335,7 @@ function getShowCodigosPendientes(){
 			$("#dvHistorial").html("");
 			console.log("Registros código recuperados: " + rows.length);
 			$.each(rows, function(i, el){
-				$("#dvHistorial").append($('<a href="#" class="list-group-item active"><h4 class="list-group-item-heading">' + el.codigo + '</h4><p class="list-group-item-text">' + el.fecha + '</p></a>'));
+				$("#dvHistorial").append($('<a href="#" class="list-group-item"><h4 class="list-group-item-heading">' + el.codigo + '</h4><p class="list-group-item-text">' + el.obs + '</p></a>'));
 			});
 		}
 	});
