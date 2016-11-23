@@ -216,9 +216,31 @@ var app = {
 		$("[action=enviarAll]").click(function(){
 			db.transaction(function(tx) {
 				tx.executeSql("select * from codigo", [], function(tx, results){
-					console
+					var total = 0;
+					var bandera = 0;
 					$.each(results.rows, function(i, el){
-						readAsText(el.foto1);
+						band++;
+						$.post("http://www.neoprojects.com.pe/neotracking-web/public/api/tracking", {
+							"photo1": el.foto1,
+							"photo2": el.foto2,
+							"photo3": el.foto3,
+							"photo4": el.foto4,
+							"num": el.celular,
+							"obs": el.obs,
+							"lat": el.lat,
+							"lng": el.lng,
+							"flag": el.flag,
+							"codigo": el.codigo,
+							"tienda": el.tienda
+						}, function(resp){
+							if (resp.code == el.codigo){
+								total++;
+							}
+							
+							band--;
+							if (band)
+								alertify.log("Se enviaron " + total + " códigos");
+						}, "json");
 					});
 				}, errorDB);
 			});
