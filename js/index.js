@@ -142,57 +142,58 @@ var app = {
 			if (tel == '' || tel == null || tel == undefined){
 				alertify.error("Es necesario indicar tu número de teléfono");
 				setTelefono();
-			}
-			if($("#txtCodigo").val() == ''){
-				alertify.error("Escanea el código");
-			}else if($("#lstImg").find("img").length < 1){
-				alertify.error("Se necesita mínimo una imagen");
-			}else if($("#txtTienda").attr("identificador") == ''){
-				alertify.error("Selecciona una tienda");
 			}else{
-				var fotos = new Array();
-				fotos[1] = "";
-				fotos[2] = "";
-				fotos[3] = "";
-				fotos[4] = "";
-				
-				$("#lstImg").find("img").each(function(i){
-					fotos[i + 1] = $(this).attr("src");
-				});
-				
-				navigator.geolocation.getCurrentPosition(function(position){
-					db.transaction(function(tx){
-						tx.executeSql("delete from codigo where codigo = ?", [$("#txtCodigo").val()], function(tx, res){
-							var tel = window.localStorage.getItem("telefono");
-							console.log(tel);
-							$("#btnSave").prop("disabled", true);
-							tx.executeSql("INSERT INTO codigo (codigo, celular, obs, lat, lng, flag, tienda, foto1, foto2, foto3, foto4) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
-									$("#txtCodigo").val(), 
-									tel, 
-									$("#txtObservaciones").val(), 
-									position.coords.latitude,
-									position.coords.longitude, 
-									$("#chkBaja").is(":checked")?"Baja":"Alta",
-									$("#txtTienda").attr("identificador"),
-									fotos[1],
-									fotos[2],
-									fotos[3],
-									fotos[4]
-								], function(tx, res) {
-									console.log("Código guardado");
-									alertify.success("Código almacenado");
-									
-									$("#btnSave").prop("disabled", false);
-								}, errorDB);
-								
-								$("#lstImg").find("img").remove();
-								$("form").find("input").val("");
-								$("#txtTienda").attr("identificador", "");
-						}, errorDB);
+				if($("#txtCodigo").val() == ''){
+					alertify.error("Escanea el código");
+				}else if($("#lstImg").find("img").length < 1){
+					alertify.error("Se necesita mínimo una imagen");
+				}else if($("#txtTienda").attr("identificador") == ''){
+					alertify.error("Selecciona una tienda");
+				}else{
+					var fotos = new Array();
+					fotos[1] = "";
+					fotos[2] = "";
+					fotos[3] = "";
+					fotos[4] = "";
+					
+					$("#lstImg").find("img").each(function(i){
+						fotos[i + 1] = $(this).attr("src");
 					});
-				}, function(error){
-					alertify.error("No se obtener tu ubicación");
-				});
+					
+					navigator.geolocation.getCurrentPosition(function(position){
+						db.transaction(function(tx){
+							tx.executeSql("delete from codigo where codigo = ?", [$("#txtCodigo").val()], function(tx, res){
+								var tel = window.localStorage.getItem("telefono");
+								console.log(tel);
+								$("#btnSave").prop("disabled", true);
+								tx.executeSql("INSERT INTO codigo (codigo, celular, obs, lat, lng, flag, tienda, foto1, foto2, foto3, foto4) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
+										$("#txtCodigo").val(), 
+										tel, 
+										$("#txtObservaciones").val(), 
+										position.coords.latitude,
+										position.coords.longitude, 
+										$("#chkBaja").is(":checked")?"Baja":"Alta",
+										$("#txtTienda").attr("identificador"),
+										fotos[1],
+										fotos[2],
+										fotos[3],
+										fotos[4]
+									], function(tx, res) {
+										console.log("Código guardado");
+										alertify.success("Código almacenado");
+										
+										$("#btnSave").prop("disabled", false);
+									}, errorDB);
+									
+									$("#lstImg").find("img").remove();
+									$("form").find("input").val("");
+									$("#txtTienda").attr("identificador", "");
+							}, errorDB);
+						});
+					}, function(error){
+						alertify.error("No se obtener tu ubicación");
+					});
+				}
 			}
 		});
 		
