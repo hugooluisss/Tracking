@@ -182,8 +182,6 @@ var app = {
 				
 				$("#lstImg").find("img").each(function(i){
 					fotos[i + 1] = $(this).attr("src");
-					
-					alert(fotos[i + 1]);
 				});
 				
 				navigator.geolocation.getCurrentPosition(function(position){
@@ -217,7 +215,7 @@ var app = {
 			db.transaction(function(tx) {
 				tx.executeSql("select * from codigo", [], function(tx, results){
 					var total = 0;
-					var bandera = 0;
+					var band = 0;
 					$.each(results.rows, function(i, el){
 						band++;
 						$.post("http://www.neoprojects.com.pe/neotracking-web/public/api/tracking", {
@@ -238,7 +236,7 @@ var app = {
 							}
 							
 							band--;
-							if (band)
+							if (band == 0)
 								alertify.log("Se enviaron " + total + " códigos");
 						}, "json");
 					});

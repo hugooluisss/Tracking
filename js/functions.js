@@ -31,7 +31,7 @@ function crearBD(){
 		}, errorDB);
 		*/
 		
-		tx.executeSql('drop table codigo');
+		//tx.executeSql('drop table codigo');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS codigo (codigo integer primary key, celular text, obs text, lat float, lng float, flag text, tienda integer, foto1 blob, foto2 blob, foto3 blob, foto4 blob)', [], function(){
 			console.log("tabla codigos creada");
 		}, errorDB);
