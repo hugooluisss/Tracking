@@ -196,37 +196,42 @@ var app = {
 					tx.executeSql("select * from codigo", [], function(tx, results){
 						var total = 0;
 						var band = 0;
-						alertify.log("Enviando datos");
-						
-						$.each(results.rows, function(i, el){
-							band++;
-							//$.post("http://www.neoprojects.com.pe/neotracking-web/public/api/tracking", {
-							$.post("http://lg.neoprojects.com.pe/api/tracking", {
-								"photo1": el.foto1,
-								"photo2": el.foto2,
-								"photo3": el.foto3,
-								"photo4": el.foto4,
-								"num": el.celular,
-								"obs": el.obs,
-								"lat": el.lat,
-								"lng": el.lng,
-								"flag": el.flag,
-								"codigo": el.codigo,
-								"tienda": el.tienda,
-								"guid": "1",
-							}, function(resp){
-								if (resp.code == el.codigo){
-									total++;
-								}
-								
-								band--;
-								if (band == 0){
-									alertify.success("Se enviaron " + total + " códigos");
-									btn.removeClass("fa-spin");
-									tx.executeSql("delete from codigo", []);
-								}
-							}, "json");
-						});
+						if (results.rows.length > 0){
+							alertify.log("Enviando datos");
+							
+							$.each(results.rows, function(i, el){
+								band++;
+								//$.post("http://www.neoprojects.com.pe/neotracking-web/public/api/tracking", {
+								$.post("http://lg.neoprojects.com.pe/api/tracking", {
+									"photo1": el.foto1,
+									"photo2": el.foto2,
+									"photo3": el.foto3,
+									"photo4": el.foto4,
+									"num": el.celular,
+									"obs": el.obs,
+									"lat": el.lat,
+									"lng": el.lng,
+									"flag": el.flag,
+									"codigo": el.codigo,
+									"tienda": el.tienda,
+									"guid": "1",
+								}, function(resp){
+									if (resp.code == el.codigo){
+										total++;
+									}
+									
+									band--;
+									if (band == 0){
+										alertify.success("Se enviaron " + total + " códigos");
+										btn.removeClass("fa-spin");
+										tx.executeSql("delete from codigo", []);
+									}
+								}, "json");
+							});
+						}else{
+							alertify.log("No hay códigos para enviar");
+							btn.removeClass("fa-spin");
+						}
 					}, errorDB);
 				});
 			}
@@ -234,10 +239,10 @@ var app = {
 	}
 };
 
-app.initialize();
+//app.initialize();
 
 $(document).ready(function(){
-	//app.onDeviceReady();
+	app.onDeviceReady();
 });
 
 function setTelefono(){
