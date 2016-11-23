@@ -167,7 +167,7 @@ var app = {
 									$("#txtObservaciones").val(), 
 									position.coords.altitude,
 									position.coords.longitude, 
-									"Alta",
+									$("#chkBaja").is(":checked")?"Baja":"Alta",
 									$("#txtTienda").attr("identificador"),
 									fotos[1],
 									fotos[2],
@@ -200,7 +200,8 @@ var app = {
 						
 						$.each(results.rows, function(i, el){
 							band++;
-							$.post("http://www.neoprojects.com.pe/neotracking-web/public/api/tracking", {
+							//$.post("http://www.neoprojects.com.pe/neotracking-web/public/api/tracking", {
+							$.post("http://lg.neoprojects.com.pe/api/tracking", {
 								"photo1": el.foto1,
 								"photo2": el.foto2,
 								"photo3": el.foto3,

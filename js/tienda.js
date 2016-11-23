@@ -26,7 +26,8 @@ function getTiendas(fn){
 	if (fn.before != undefined)
 		fn.before();
 		
-	$.get("http://www.neoprojects.com.pe/neotracking-web/public/api/tienda", function(resp){
+	//$.get("http://www.neoprojects.com.pe/neotracking-web/public/api/tienda", function(resp){
+	$.get("http://lg.neoprojects.com.pe/api/tienda", function(resp){
 		if (fn.after != undefined)
 			fn.after(resp);
 	}, "json");
