@@ -207,8 +207,8 @@ var app = {
 		$("[action=enviarAll]").click(function(){
 			db.transaction(function(tx) {
 				tx.executeSql("select * from codigo", [], function(tx, results){
-					alert(results.rows.length);
-					$.each(function(i, el){
+					console
+					$.each(results.row, function(i, el){
 						readAsText(el.foto1);
 					});
 				}, errorDB);
