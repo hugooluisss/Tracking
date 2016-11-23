@@ -100,15 +100,13 @@ var app = {
 			});
 		});
 		
-		function imprimeCodigos(){
-			$("[action=getCode]").click(function(){
-				cordova.plugins.barcodeScanner.scan(function(result){
-					$("#txtCodigo").val(result.text);
-				},function(error){
-					alertify.error("Ocurrió un error al leer el código");
-				});
+		$("[action=getCode]").click(function(){
+			cordova.plugins.barcodeScanner.scan(function(result){
+				$("#txtCodigo").val(result.text);
+			},function(error){
+				alertify.error("Ocurrió un error al leer el código");
 			});
-		}
+		});
 		
 		getShowCodigosPendientes();
 		
@@ -259,10 +257,10 @@ var app = {
 	}
 };
 
-app.initialize();
+//app.initialize();
 
 $(document).ready(function(){
-	//app.onDeviceReady();
+	app.onDeviceReady();
 });
 
 function setTelefono(){
