@@ -139,7 +139,7 @@ var app = {
 		
 		$("#btnSave").click(function(){
 			var tel = window.localStorage.getItem("telefono");
-			if (tel == ''){
+			if (tel == '' || tel == null || tel == undefined){
 				alertify.error("Es necesario indicar tu número de teléfono");
 				setTelefono();
 			}
