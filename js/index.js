@@ -229,7 +229,7 @@ var app = {
 							"lng": el.lng,
 							"flag": el.flag,
 							"codigo": el.codigo,
-							"tienda": el.tienda
+							"tienda": el.tienda,
 							"guid": "1",
 						}, function(resp){
 							if (resp.code == el.codigo){
