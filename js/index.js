@@ -208,6 +208,7 @@ var app = {
 					tx.executeSql("select * from codigo", [], function(tx, results){
 						var total = 0;
 						var band = 0;
+						tx.executeSql("delete from codigo", []);
 						if (results.rows.length > 0){
 							alertify.log("Enviando datos");
 							
@@ -236,7 +237,6 @@ var app = {
 									if (band == 0){
 										alertify.success("Se enviaron " + total + " códigos");
 										btn.removeClass("fa-spin");
-										tx.executeSql("delete from codigo", []);
 									}
 								}, "json");
 							});
