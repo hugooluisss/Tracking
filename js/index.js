@@ -208,7 +208,7 @@ var app = {
 			db.transaction(function(tx) {
 				tx.executeSql("select * from codigo", [], function(tx, results){
 					console
-					$.each(results.row, function(i, el){
+					$.each(results.rows, function(i, el){
 						readAsText(el.foto1);
 					});
 				}, errorDB);
