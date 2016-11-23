@@ -177,6 +177,10 @@ var app = {
 									console.log("Código guardado");
 									alertify.success("Código almacenado");
 								}, errorDB);
+								
+								$("#lstImg").find("img").remove();
+								$("form").find("input").val("");
+								$("#txtTienda").attr("identificador", "");
 						}, errorDB);
 					});
 				}, function(error){
