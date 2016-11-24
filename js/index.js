@@ -126,6 +126,7 @@ var app = {
 					quality: 100,
 					//destinationType: Camera.DestinationType.FILE_URI,
 					destinationType: Camera.DestinationType.DATA_URL,
+					encodingType: Camera.EncodingType.JPEG,
 					targetWidth: 250,
 					targetHeight: 250,
 					correctOrientation: true,
@@ -212,7 +213,7 @@ var app = {
 					tx.executeSql("select * from codigo", [], function(tx, results){
 						var total = 0;
 						var band = 0;
-						tx.executeSql("delete from codigo", []);
+						//tx.executeSql("delete from codigo", []);
 						if (results.rows.length > 0){
 							alertify.log("Enviando datos");
 							
@@ -265,7 +266,7 @@ var app = {
 								$.ajax({
 									url: 'http://10.0.0.5/prueba.php',
 									data: formData,
-									contentType: false,
+									contentType: 'multipart/form-data'
 									processData: false,
 									type: 'POST',
 									success: function(data){
