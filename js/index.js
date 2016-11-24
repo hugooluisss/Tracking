@@ -266,7 +266,7 @@ var app = {
 								$.ajax({
 									url: 'http://10.0.0.5/prueba.php',
 									data: formData,
-									contentType: 'multipart/form-data',
+									contentType: false,
 									processData: false,
 									type: 'POST',
 									success: function(data){
