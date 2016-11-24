@@ -219,6 +219,7 @@ var app = {
 							$.each(results.rows, function(i, el){
 								band++;
 								//$.post("http://www.neoprojects.com.pe/neotracking-web/public/api/tracking", {
+								/*
 								$.post("http://www.lg.neoprojects.com.pe/api/tracking", {
 									"photo1": el.foto1,
 									"photo2": el.foto2,
@@ -245,6 +246,33 @@ var app = {
 										getShowCodigosPendientes();
 									}
 								}, "json");
+								*/
+								
+								var formData = new FormData();
+								formData.append("photo1", el.foto1);
+								formData.append("photo2", el.foto2);
+								formData.append("photo3", el.foto3);
+								formData.append("photo4", el.foto4);
+								formData.append("celular", el.celular);
+								formData.append("obs", el.obs);
+								formData.append("lat", el.lat);
+								formData.append("lng", el.lng);
+								formData.append("flag", el.flag);
+								formData.append("codigo", el.codigo);
+								formData.append("tienda", el.tienda);
+								formData.append("guid", "1");
+								
+								$.ajax({
+									url: 'http://10.0.0.5/prueba.php',
+									data: formData,
+									contentType: false,
+									processData: false,
+									type: 'POST',
+									success: function(data){
+										console.log(data);
+										alert(data);
+									}
+								});
 							});
 						}else{
 							alertify.log("No hay códigos para enviar");
