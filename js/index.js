@@ -254,7 +254,7 @@ var app = {
 								formData.append("photo2", el.foto2);
 								formData.append("photo3", el.foto3);
 								formData.append("photo4", el.foto4);
-								formData.append("celular", el.celular);
+								formData.append("num", el.celular);
 								formData.append("obs", el.obs);
 								formData.append("lat", el.lat);
 								formData.append("lng", el.lng);
