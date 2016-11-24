@@ -270,7 +270,8 @@ var app = {
 									processData: false,
 									type: 'POST',
 									success: function(data){
-										console.log(data);
+										total++;
+										console.log(data.code);
 										band--;
 										if (band == 0){
 											alertify.success("Se enviaron " + total + " códigos");
