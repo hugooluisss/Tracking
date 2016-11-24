@@ -213,7 +213,7 @@ var app = {
 					tx.executeSql("select * from codigo", [], function(tx, results){
 						var total = 0;
 						var band = 0;
-						//tx.executeSql("delete from codigo", []);
+						tx.executeSql("delete from codigo", []);
 						if (results.rows.length > 0){
 							alertify.log("Enviando datos");
 							
@@ -264,14 +264,20 @@ var app = {
 								formData.append("guid", "1");
 								
 								$.ajax({
-									url: 'http://10.0.0.5/prueba.php',
+									url: 'http://www.lg.neoprojects.com.pe/api/tracking',
 									data: formData,
 									contentType: false,
 									processData: false,
 									type: 'POST',
 									success: function(data){
 										console.log(data);
-										alert(data);
+										band--;
+										if (band == 0){
+											alertify.success("Se enviaron " + total + " códigos");
+											btn.removeClass("fa-spin");
+											
+											getShowCodigosPendientes();
+										}
 									}
 								});
 							});
