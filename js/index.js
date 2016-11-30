@@ -338,10 +338,12 @@ function actualizarListaTiendas(){
 			$.each(rows, function(i, el){
 				var data = new Array();
 				data.value = el.clave;
-				data.label = el.nombre
+				data.label = el.nombre;
+				
+				console.log(el);
 				tiendas.push(data);
 			});
-			
+			console.log(tiendas);
 			$("#txtTienda").autocomplete({
 				source: tiendas,
 				focus: function(event, ui){

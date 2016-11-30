@@ -6,9 +6,6 @@ TTienda = function(){
 		
 		db.transaction(function(tx) {
 			tx.executeSql("INSERT INTO tienda (clave, nombre) VALUES (?,?)", [parseInt(id), nombre], function(tx, res) {
-				console.log("insertId: " + res.insertId + " -- probably 1");
-				console.log("rowsAffected: " + res.rowsAffected + " -- should be 1");
-				
 				if (fn.after !== undefined) fn.after();
 			}, errorDB);
 		});
