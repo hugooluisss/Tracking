@@ -62,9 +62,8 @@
 		<plugin name="cordova-plugin-file" source="npm"/>
 		<plugin name="cordova-plugin-geolocation" source="npm"/>
 		<plugin name="cordova-plugin-network-information" source="npm"/>
-		<!--<plugin name="cordova-plugin-sqlite" source="npm"/>-->
+		<plugin name="cordova-plugin-sqlite" source="npm"/>
 		<plugin name="cordova-plugin-whitelist" source="npm"/>
-		<plugin name="cordova-sqlite-storage" source="npm"/>
 		<!-- Define app icon for each platform. -->  
 		<icon src="icon.png" />  
 		<icon src="res/icon/android/icon-36-ldpi.png"  gap:platform="android"  gap:qualifier="ldpi" />  
