@@ -88,12 +88,16 @@ var app = {
 					var obj = new TTienda;
 					obj.truncate({
 						before: function(){
-							$("#getTiendas").show();	
+							$("#getTiendas").show();
 						},
 						after: function(){
+							var cont = 0;
 							$.each(resp, function(i, el){
 								obj.add(el.id, el.name, {});
+								cont++;
 							});
+							
+							console.log("Total de tiendas: " + cont);
 							$("#getTiendas").hide();
 							actualizarListaTiendas();
 						}
