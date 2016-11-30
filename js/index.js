@@ -393,9 +393,10 @@ function getShowCodigosPendientes(){
 		after: function(rows){
 			$("#dvHistorial").html("");
 			console.log("Registros código recuperados: " + rows.length);
-			$.each(rows, function(i, el){
+			for(cont = 0 ; cont < rows.length ; cont++){
+				el = rows.item(cont);
 				$("#dvHistorial").append($('<a href="#" class="list-group-item"><h4 class="list-group-item-heading">' + el.codigo + '</h4><p class="list-group-item-text">' + el.obs + '</p></a>'));
-			});
+			}
 		}
 	});
 	
