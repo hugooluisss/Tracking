@@ -335,17 +335,22 @@ function actualizarListaTiendas(){
 			console.log("Se obtuvieron " + rows.length + " registros de tiendas");
 			
 			var tiendas = new Array();
+			var el = null;
+			for(cont = 0 ; cont < rows.length ; cont++){
+				el = rows.item(cont);
+				var data = new Array();
+				data.value = el.clave;
+				data.label = el.nombre;
+				tiendas.push(data);
+			}
+			/*
 			$.each(rows, function(i, el){
 				var data = new Array();
 				data.value = el.clave;
 				data.label = el.nombre;
-				
-				console.log(el.nombre);
-				console.log(el["nombre"]);
-				console.log(data);
 				tiendas.push(data);
 			});
-			
+			*/
 			console.log(tiendas);
 			$("#txtTienda").autocomplete({
 				source: tiendas,
