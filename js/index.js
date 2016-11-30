@@ -340,9 +340,12 @@ function actualizarListaTiendas(){
 				data.value = el.clave;
 				data.label = el.nombre;
 				
-				console.log(el);
+				console.log(el.nombre);
+				console.log(el["nombre"]);
+				console.log(data);
 				tiendas.push(data);
 			});
+			
 			console.log(tiendas);
 			$("#txtTienda").autocomplete({
 				source: tiendas,
