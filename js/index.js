@@ -264,7 +264,7 @@ var app = {
 										}
 									}
 								});
-							});
+							}
 						}else{
 							alertify.log("No hay códigos para enviar");
 							btn.removeClass("fa-spin");
