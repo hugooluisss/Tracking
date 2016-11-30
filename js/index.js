@@ -42,7 +42,7 @@ var app = {
 			console.log("Conexión desde phonegap OK");
 			crearBD(db);
 		}catch(err){
-			alert("No se pudo crear la base de datos con sqlite");
+			alertify.error("No se pudo crear la base de datos con sqlite... se intentará trabajar con web");
 			db = window.openDatabase("tracking.db", "1.0", "Just a Dummy DB", 200000);
 			crearBD(db);
 			console.log("Se inicio la conexión a la base para web");
@@ -228,38 +228,9 @@ var app = {
 						tx.executeSql("delete from codigo", []);
 						if (results.rows.length > 0){
 							alertify.log("Enviando datos");
-							
-							$.each(results.rows, function(i, el){
+							for(cont = 0 ; cont < results.rows.length ; cont++){
+								el = results.rows.item(cont);
 								band++;
-								//$.post("http://www.neoprojects.com.pe/neotracking-web/public/api/tracking", {
-								/*
-								$.post("http://www.lg.neoprojects.com.pe/api/tracking", {
-									"photo1": el.foto1,
-									"photo2": el.foto2,
-									"photo3": el.foto3,
-									"photo4": el.foto4,
-									"num": el.celular,
-									"obs": el.obs,
-									"lat": el.lat,
-									"lng": el.lng,
-									"flag": el.flag,
-									"codigo": el.codigo,
-									"tienda": el.tienda,
-									"guid": "1",
-								}, function(resp){
-									if (resp.code == el.codigo){
-										total++;
-									}
-									
-									band--;
-									if (band == 0){
-										alertify.success("Se enviaron " + total + " códigos");
-										btn.removeClass("fa-spin");
-										
-										getShowCodigosPendientes();
-									}
-								}, "json");
-								*/
 								
 								var formData = new FormData();
 								formData.append("photo1", el.foto1);
