@@ -93,13 +93,19 @@ var app = {
 						after: function(){
 							var cont = 0;
 							$.each(resp, function(i, el){
-								obj.add(el.id, el.name, {});
 								cont++;
+								if (resp.length == cont)
+									obj.add(el.id, el.name, {
+										after: function(){
+											actualizarListaTiendas();
+										}
+									});
+								else
+									obj.add(el.id, el.name, {});
 							});
 							
 							console.log("Total de tiendas: " + cont);
 							$("#getTiendas").hide();
-							actualizarListaTiendas();
 						}
 					});
 				}
@@ -326,6 +332,8 @@ function actualizarListaTiendas(){
 			
 			var cont = 1;
 			var rows = results.rows;
+			console.log("Se obtuvieron " + rows.length + " registros de tiendas");
+			
 			var tiendas = new Array();
 			$.each(rows, function(i, el){
 				var data = new Array();
@@ -333,6 +341,7 @@ function actualizarListaTiendas(){
 				data.label = el.nombre
 				tiendas.push(data);
 			});
+			
 			$("#txtTienda").autocomplete({
 				source: tiendas,
 				focus: function(event, ui){
