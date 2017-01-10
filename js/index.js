@@ -162,7 +162,9 @@ var app = {
 			}else{
 				if($("#txtCodigo").val() == ''){
 					alertify.error("Escanea el código");
-				}else if($("#lstImg").find("img").length < 1){
+				}else if($("#txtCodigo").val().length > 5)
+					alertify.error("El código solo puede contener hasta 5 dígitos");
+				else if($("#lstImg").find("img").length < 1){
 					alertify.error("Se necesita mínimo una imagen");
 				}else if($("#txtTienda").attr("identificador") == ''){
 					alertify.error("Selecciona una tienda");
